@@ -10,11 +10,11 @@ import numpy as np
 import matplotlib.animation as animation
 from math import floor, log10, isnan
 
-def B(p,q,r): #n>=0
+def B(p,q,r): 
     B_pqr = (r-q)*np.power(p,2) + (p-r)*np.power(q,2) + (q-p)*np.power(r,2)
     return B_pqr
 
-def KX(n,X,Y,tau): #generate will not be using this!
+def KX(n,X,Y,tau): ##dK/dx for n>=0, generate will not be using this!
     theta1 = k1*X + np.power(k1,2)*Y - np.power(k1,3)*tau
     theta2 = k2*X + np.power(k2,2)*Y - np.power(k2,3)*tau
     theta3 = k3*X + np.power(k3,2)*Y - np.power(k3,3)*tau
@@ -35,7 +35,7 @@ def KX(n,X,Y,tau): #generate will not be using this!
                                                       np.cosh((theta1+theta4+theta6-theta2-theta3-theta5)/2))
     return K_Xn
 
-def KY(m,X,Y,tau): #m>=1
+def KY(m,X,Y,tau): #dk/dy m>=1
     theta1 = k1*X + np.power(k1,2)*Y - np.power(k1,3)*tau
     theta2 = k2*X + np.power(k2,2)*Y - np.power(k2,3)*tau
     theta3 = k3*X + np.power(k3,2)*Y - np.power(k3,3)*tau
@@ -51,7 +51,7 @@ def KY(m,X,Y,tau): #m>=1
                                                  np.cosh((theta1+theta4+theta6-theta2-theta3-theta5)/2))
     return K_Yn
 
-def K_XY(n,m,X,Y,tau): #n>=0,m>=1
+def K_XY(n,m,X,Y,tau): #dk/dxdy, for n>=0,m>=1
     theta1 = k1*X + np.power(k1,2)*Y - np.power(k1,3)*tau
     theta2 = k2*X + np.power(k2,2)*Y - np.power(k2,3)*tau
     theta3 = k3*X + np.power(k3,2)*Y - np.power(k3,3)*tau
@@ -67,7 +67,7 @@ def K_XY(n,m,X,Y,tau): #n>=0,m>=1
                                                  np.cosh((theta1+theta4+theta6-theta2-theta3-theta5)/2))
     return K_XYnm
 
-def phi(x,y,z,t):
+def phi(x,y,z,t): #velocity potential
     K=KX(0,x,y,t)
     
     psi = 6*(2**(1/2)/3)**(5/3)*KX(1,x,y,t)/K
@@ -94,7 +94,7 @@ def phi(x,y,z,t):
     phi3=(c*atilde*l/h)*(psi)
     return phi1, phi2, phi3
 
-def generate(X,Y,tau):
+def generate(X,Y,tau): #generating soliton solution
     theta1 = k1*X + np.power(k1,2)*Y - np.power(k1,3)*tau
     theta2 = k2*X + np.power(k2,2)*Y - np.power(k2,3)*tau
     theta3 = k3*X + np.power(k3,2)*Y - np.power(k3,3)*tau
@@ -132,7 +132,7 @@ def generate(X,Y,tau):
     Z = 2 * ( (K_XX/K) - np.power(K_X/K,2) )
     return Z
 
-def Psigen(X,Y,tau):
+def Psigen(X,Y,tau): #generating psi
     theta1 = k1*X + np.power(k1,2)*Y - np.power(k1,3)*tau
     theta2 = k2*X + np.power(k2,2)*Y - np.power(k2,3)*tau
     theta3 = k3*X + np.power(k3,2)*Y - np.power(k3,3)*tau
